@@ -23,13 +23,34 @@
             line-height: 1.6;
         }
 
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 2.5rem 1rem;
-            text-align: center;
-            border-bottom: 4px solid var(--dark-accent);
-        }
+
+
+
+header {
+    background-image: url("file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-10%20at%208.10.35%20PM.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+    border-bottom: 4px solid var(--dark-accent);
+    position: relative;
+}
+
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+}
+
+header h1,
+header p {
+    position: relative;
+    z-index: 1;
+}
 
         header h1 {
             margin: 0;
