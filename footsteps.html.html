@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Heritage Explorer | Bengal & Beyond</title>
+    <style>
+        /* --- Global Styles & Colors --- */
+        :root {
+            --primary-color: #8c6239; /* Terracotta/Earth brown */
+            --secondary-color: #e6dfd3; /* Soft cream/stone */
+            --bg-color: #fdfbf7; /* Warm white page background */
+            --text-color: #333333;
+            --dark-accent: #5c3e21;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2.5rem 1rem;
+            text-align: center;
+            border-bottom: 4px solid var(--dark-accent);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+
+        header p {
+            margin: 0.5rem 0 0 0;
+            font-style: italic;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* --- Refactored Navigation Menu with Advanced Dropdowns --- */
+        nav {
+            background-color: var(--dark-accent);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            display: block;
+            color: white;
+            padding: 16px 24px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav li:hover > a {
+            background-color: var(--primary-color);
+        }
+
+        /* Standard Dropdown Container */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.15);
+            padding: 0;
+            border-top: 3px solid var(--primary-color);
+        }
+
+        /* Mega Dropdown Structure for West Bengal's 23 Districts */
+        .mega-dropdown {
+            min-width: 650px;
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.15);
+            padding: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            border-top: 3px solid var(--primary-color);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .mega-col h4 {
+            margin: 0 0 8px 0;
+            color: var(--primary-color);
+            font-size: 13px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--secondary-color);
+            padding-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .mega-col ul {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .mega-col li a {
+            color: var(--text-color);
+            padding: 6px 0;
+            font-weight: 500;
+            font-size: 13px;
+            background: none;
+        }
+
+        .mega-col li a:hover {
+            color: var(--primary-color);
+            background: none;
+            padding-left: 5px;
+        }
+
+        /* Simple Dropdown Items */
+        .dropdown-menu a {
+            color: var(--text-color);
+            padding: 12px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            font-weight: 500;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        /* Trigger Display Rules */
+        nav li:hover .dropdown-menu {
+            display: block;
+        }
+
+        nav li:hover .mega-dropdown {
+            display: grid;
+        }
+
+        /* --- Main Layout Grid --- */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 40px;
+            padding: 0 15px;
+        }
+
+        @media (max-width: 992px) {
+            .mega-dropdown {
+                min-width: 100%;
+                grid-template-columns: repeat(2, 1fr);
+                left: 0;
+                transform: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            .dropdown-menu, .mega-dropdown {
+                position: relative;
+                display: none; /* Mobile adjustments would usually use JS, basic click fallback */
+                min-width: 100%;
+                box-shadow: none;
+                transform: none;
+                left: 0;
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+            nav li:hover .dropdown-menu, nav li:hover .mega-dropdown {
+                display: block;
+            }
+        }
+
+        /* --- Blog Post Layout --- */
+        .main-content h2 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-top: 0;
+        }
+
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .post-card {
+            background: white;
+            border: 1px solid #e8e4dc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .post-thumb {
+            width: 100%;
+            height: 190px;
+            background-color: #e6dfd3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #61462d;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .post-info {
+            padding: 20px;
+        }
+
+        .post-category {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .post-title {
+            margin: 8px 0 12px 0;
+            font-size: 19px;
+            line-height: 1.4;
+            color: #222;
+        }
+
+        .post-excerpt {
+            font-size: 13.5px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .read-more:hover {
+            transform: translateX(4px);
+        }
+
+        /* --- Sidebar & Identity Card --- */
+        .sidebar h3 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 6px;
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+
+        .heritage-id-card {
+            width: 100%;
+            background: #fdfbf7;
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .id-header {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .id-header h3 {
+            margin: 0;
+            font-size: 15px;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: white;
+            border: none;
+        }
+
+        .id-badge {
+            font-size: 10px;
+            background: #fff;
+            color: var(--primary-color);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 6px;
+        }
+
+        .id-body {
+            display: flex;
+            padding: 20px;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .id-photo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--secondary-color);
+            object-fit: cover;
+        }
+
+        .id-details {
+            flex: 1;
+        }
+
+        .id-field {
+            margin-bottom: 8px;
+        }
+
+        .id-field label {
+            display: block;
+            font-size: 9px;
+            color: #8a8a8a;
+            letter-spacing: 1px;
+            margin-bottom: 1px;
+        }
+
+        .id-field .id-value {
+            font-size: 13px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .id-footer {
+            background: var(--secondary-color);
+            padding: 10px;
+            text-align: center;
+            border-top: 1px dashed var(--primary-color);
+        }
+
+        .id-footer p {
+            margin: 0;
+            font-size: 11px;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* --- Social Connections --- */
+        .social-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn.facebook:hover {
+            background-color: #3b5998;
+            color: white;
+            border-color: #3b5998;
+        }
+
+        .social-btn.instagram:hover {
+            background-color: #e1306c;
+            color: white;
+            border-color: #e1306c;
+        }
+
+        .social-btn span {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        footer.site-footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 14px;
+            border-top: 4px solid var(--dark-accent);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Footsteps Through Time</h1>
+        <p>Unearthing Stories, Architecture & Antiquities</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            
+            <li>
+                <a href="#">West Bengal ▼</a>
+                <div class="mega-dropdown">
+                    <div class="mega-col">
+                        <h4>North Bengal & Hills</h4>
+                        <ul>
+                            <li><a href="#">Alipurduar</a></li>
+                            <li><a href="#">Cooch Behar</a></li>
+                            <li><a href="#">Darjeeling</a></li>
+                            <li><a href="#">Jalpaiguri</a></li>
+                            <li><a href="#">Kalimpong</a></li>
+                            <li><a href="#">Malda</a></li>
+                            <li><a href="#">Uttar Dinajpur</a></li>
+                            <li><a href="#">Dakshin Dinajpur</a></li>
+                        </ul>
+                    </div>
+                    <div class="mega-col">
+                        <h4>Rarh & Western Plains</h4>
+                        <ul>
+                            <li><a href="#">Bankura</a></li>
+                            <li><a href="#">Birbhum</a></li>
+                            <li><a href="#">Jhargram</a></li>
+                            <li><a href="#">Paschim Bardhaman</a></li>
+                            <li><a href="#">Purba Bardhaman</a></li>
+                            <li><a href="#">Paschim Medinipur</a></li>
+                            <li><a href="#">Purulia</a></li>
+                        </ul>
+                    </div>
+                    <div class="mega-col">
+                        <h4>Delta & Lower Bengal</h4>
+                        <ul>
+                            <li><a href="#">Hooghly</a></li>
+                            <li><a href="#">Howrah</a></li>
+                            <li><a href="#">Kolkata</a></li>
+                            <li><a href="#">Murshidabad</a></li>
+                            <li><a href="#">Nadia</a></li>
+                            <li><a href="#">North 24 Parganas</a></li>
+                            <li><a href="#">Purba Medinipur</a></li>
+                            <li><a href="#">South 24 Parganas</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+            <li>
+                <a href="#">Travel Diary Outside Bengal ▼</a>
+                <div class="dropdown-menu">
+                    <a href="#">Rajasthan ➔</a>
+                    <a href="#">Karnataka</a>
+                    <a href="#">Other States</a>
+                </div>
+            </li>
+            
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        
+        <main class="main-content">
+            <h2>Recent Journeys</h2>
+            <div class="post-grid">
+                
+                <article class="post-card">
+                    <div class="post-thumb">📷 Photo of Belur Math</div>
+                    <div class="post-info">
+                        <span class="post-category">West Bengal > Howrah</span>
+                        <h3 class="post-title">The Architectural Confluence of Belur Math</h3>
+                        <p class="post-excerpt">Exploring the profound architectural philosophy where temples, mosques, and churches blend into one structure right in my backyard.</p>
+                        <a href="#" class="read-more">Read Journey →</a>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-thumb">📷 Photo of Rajasthan</div>
+                    <div class="post-info">
+                        <span class="post-category">Outside Bengal > Rajasthan</span>
+                        <h3 class="post-title">The Golden Fort: Echoes of Jaisalmer</h3>
+                        <p class="post-excerpt">Stepping into the living fort of the Thar Desert to uncover ancient havelis, yellow sandstone geometry, and royal history.</p>
+                        <a href="#" class="read-more">Read Journey →</a>
+                    </div>
+                </article>
+
+                <article class="post-card">
+                    <div class="post-thumb">📷 Photo of Bishnupur</div>
+                    <div class="post-info">
+                        <span class="post-category">West Bengal > Bankura</span>
+                        <h3 class="post-title">Terracotta Tales of Bishnupur</h3>
+                        <p class="post-excerpt">Documenting the intricate burnt-clay reliefs adorning the 17th-century temples built by the Malla kings.</p>
+                        <a href="#" class="read-more">Read Journey →</a>
+                    </div>
+                </article>
+
+            </div>
+        </main>
+
+
+
+        <aside class="sidebar">
+            <h3>The Explorer</h3>
+            
+            <div class="heritage-id-card">
+                <div class="id-header">
+                    <h3>HERITAGE EXPLORER</h3>
+                    <span class="id-badge">OFFICIAL BLOGGER</span>
+                </div>
+                
+                <div class="id-body">
+                    <div class="id-photo">
+                        <img src="https://via.placeholder.com/120" alt="Explorer Profile Photo">
+                    </div>
+                    
+                    <div class="id-details">
+                        <div class="id-field">
+                            <label>NAME</label>
+                            <span class="id-value">Your Name</span>
+                        </div>
+                        <div class="id-field">
+                            <label>BASECAMP</label>
+                            <span class="id-value">Belur, Howrah, WB</span>
+                        </div>
+                        <div class="id-field">
+                            <label>INTERESTS</label>
+                            <span class="id-value">History, Temple Architecture, Ruins</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="id-footer">
+                    <p>“Documenting the past, one journey at a time.”</p>
+                </div>
+            </div>
+
+            <h3>Search Site</h3>
+            <p style="font-size: 14px; color:#666; margin-bottom: 25px;">Looking for a specific monument or district? Use our region-mapped menu panels above to quickly navigate through historical zones.</p>
+
+            <h3>Follow My Journeys</h3>
+            <div class="social-buttons">
+                <a href="#" target="_blank" class="social-btn facebook">
+                    <span>📘</span> Facebook
+                </a>
+                <a href="#" target="_blank" class="social-btn instagram">
+                    <span>📸</span> Instagram
+                </a>
+            </div>
+        </aside>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2026 The Heritage Explorer. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
