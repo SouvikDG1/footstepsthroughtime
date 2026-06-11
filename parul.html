@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bishalakshi Temple Journey | The Heritage Explorer</title>
+    <style>
+        /* --- Global Styles & Colors --- */
+        :root {
+            --primary-color: #8c6239; /* Terracotta/Earth brown */
+            --secondary-color: #e6dfd3; /* Soft cream/stone */
+            --bg-color: #fdfbf7; /* Warm white page background */
+            --text-color: #333333;
+            --dark-accent: #5c3e21;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+        }
+
+        /* Top Banner Style */
+        header.site-banner {
+            background-image: url("file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-10%20at%208.10.35%20PM.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--dark-accent);
+            position: relative;
+        }
+
+        header.site-banner::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+        }
+
+        header.site-banner h1, header.site-banner p {
+            position: relative;
+            z-index: 1;
+        }
+
+        header.site-banner h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+
+        header.site-banner p {
+            margin: 0.5rem 0 0 0;
+            font-style: italic;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* --- Navigation Menu --- */
+        nav {
+            background-color: var(--dark-accent);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            display: block;
+            color: white;
+            padding: 16px 24px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav li:hover > a {
+            background-color: var(--primary-color);
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.15);
+            padding: 0;
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .mega-dropdown {
+            min-width: 650px;
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.15);
+            padding: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            border-top: 3px solid var(--primary-color);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .mega-col h4 {
+            margin: 0 0 8px 0;
+            color: var(--primary-color);
+            font-size: 13px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--secondary-color);
+            padding-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .mega-col ul {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 0;
+            list-style: none;
+        }
+
+        .mega-col li a {
+            color: var(--text-color);
+            padding: 6px 0;
+            font-weight: 500;
+            font-size: 13px;
+            background: none;
+        }
+
+        .mega-col li a:hover {
+            color: var(--primary-color);
+            background: none;
+            padding-left: 5px;
+        }
+
+        .dropdown-menu a {
+            color: var(--text-color);
+            padding: 12px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            font-weight: 500;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        nav li:hover .dropdown-menu { display: block; }
+        nav li:hover .mega-dropdown { display: grid; }
+
+        /* --- Blog Article Page Layout --- */
+        .article-container {
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .breadcrumb {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .breadcrumb a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* Cleaned Title Header Container */
+        .blog-header-wrapper {
+            background: transparent !important;
+            padding: 0 !important;
+            text-align: left !important;
+            position: relative;
+            border: none !important;
+        }
+
+        .blog-header-wrapper h1 {
+            font-size: 2.4rem;
+            color: #222 !important;
+            line-height: 1.3;
+            margin: 10px 0 20px 0;
+            font-weight: 700;
+        }
+
+        .blog-meta {
+            font-size: 14px;
+            color: #666;
+            border-bottom: 1px solid var(--secondary-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        /* --- Content Layout Style Elements --- */
+        .blog-content p {
+            font-size: 17px;
+            color: #3d3d3d;
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .blog-content h2 {
+            color: var(--primary-color);
+            font-size: 1.6rem;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 12px;
+        }
+
+        /* Inline Images Layout */
+        .story-photo-wrapper {
+            margin: 35px 0;
+            background: #fff;
+            border: 1px solid #e8e4dc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .story-photo-wrapper img {
+            width: 100%;
+            height: auto;
+            max-height: 480px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-caption {
+            padding: 12px 15px;
+            font-size: 13.5px;
+            color: #666;
+            background-color: #faf8f5;
+            border-top: 1px solid #e8e4dc;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .photo-split-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 35px 0;
+        }
+        .photo-split-row .story-photo-wrapper {
+            margin: 0;
+        }
+
+        /* --- Bottom Gallery Grid Box Area --- */
+        .gallery-box-wrapper {
+            background-color: #fff;
+            border: 1px solid #e8e4dc;
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 60px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .gallery-box-wrapper h3 {
+            margin-top: 0;
+            color: var(--dark-accent);
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            border-radius: 6px;
+            overflow: hidden;
+            height: 160px;
+            border: 1px solid #e8e4dc;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        footer.site-footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 70px;
+            font-size: 14px;
+            border-top: 4px solid var(--dark-accent);
+        }
+
+        /* --- Responsive Settings --- */
+        @media (max-width: 768px) {
+            .photo-split-row { grid-template-columns: 1fr; gap: 15px; }
+            .blog-header-wrapper h1 { font-size: 1.8rem; }
+            nav ul { flex-direction: column; text-align: center; }
+            .dropdown-menu, .mega-dropdown {
+                position: relative;
+                display: none;
+                min-width: 100%;
+                box-shadow: none;
+                transform: none;
+                left: 0;
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+            nav li:hover .dropdown-menu, nav li:hover .mega-dropdown { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Main Banner -->
+    <header class="site-banner">
+        <h1>Footsteps Through Time</h1>
+        <p>Unearthing Stories, Architecture & Antiquities</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li>
+                <a href="#">West Bengal ▼</a>
+                <div class="mega-dropdown">
+                    <div class="mega-col">
+                        <h4>North Bengal & Hills</h4>
+                        <ul>
+                            <li><a href="#">Alipurduar</a></li>
+                            <li><a href="#">Cooch Behar</a></li>
+                            <li><a href="#">Darjeeling</a></li>
+                            <li><a href="#">Jalpaiguri</a></li>
+                            <li><a href="#">Kalimpong</a></li>
+                            <li><a href="#">Malda</a></li>
+                            <li><a href="#">Uttar Dinajpur</a></li>
+                            <li><a href="#">Dakshin Dinajpur</a></li>
+                        </ul>
+                    </div>
+                    <div class="mega-col">
+                        <h4>Rarh & Western Plains</h4>
+                        <ul>
+                            <li><a href="#">Bankura</a></li>
+                            <li><a href="#">Birbhum</a></li>
+                            <li><a href="#">Jhargram</a></li>
+                            <li><a href="#">Paschim Bardhaman</a></li>
+                            <li><a href="#">Purba Bardhaman</a></li>
+                            <li><a href="#">Paschim Medinipur</a></li>
+                            <li><a href="#">Purulia</a></li>
+                        </ul>
+                    </div>
+                    <div class="mega-col">
+                        <h4>Delta & Lower Bengal</h4>
+                        <ul>
+                            <li><a href="#">Hooghly</a></li>
+                            <li><a href="#">Howrah</a></li>
+                            <li><a href="#">Kolkata</a></li>
+                            <li><a href="#">Murshidabad</a></li>
+                            <li><a href="#">Nadia</a></li>
+                            <li><a href="#">North 24 Parganas</a></li>
+                            <li><a href="#">Purba Medinipur</a></li>
+                            <li><a href="#">South 24 Parganas</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="#">Travel Diary Outside Bengal ▼</a>
+                <div class="dropdown-menu">
+                    <a href="#">Rajasthan ➔</a>
+                    <a href="#">Karnataka</a>
+                    <a href="#">Other States</a>
+                </div>
+            </li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Core Article Container -->
+    <div class="article-container">
+        
+        <!-- Breadcrumbs -->
+        <div class="breadcrumb">
+            <a href="#">Home</a> &gt; <a href="#">West Bengal</a> &gt; <a href="#">Hooghly</a> &gt; Parul Village
+        </div>
+
+        <!-- Article Core -->
+        <article class="blog-main-post">
+            
+            <!-- FIXED BLOCK: Isolated class naming container removes the accidental dark background overlay shadow -->
+            <div class="blog-header-wrapper">
+                <h1>Parul Village’s Bishalakshi Temple: Legend, History, and Terracotta Art</h1>
+                <div class="blog-meta">
+                    Published on June 11, 2026 &bull; Written by Souvik Dasgupta &bull; Field Journal #42
+                </div>
+            </div>
+
+            <!-- Text Content body along with embedded photographs -->
+            <div class="blog-content">
+                <p>Among Bengal’s comparatively later terracotta temples stands the Bishalakshi Temple of Parul village in Hooghly district. Dedicated to the all-seeing Goddess Bishalakshi, this south-facing temple, built on a high plinth in the traditional atchala style, is associated with a popular local legend.</p>
+                
+                <!-- Story Photo 1 -->
+                <div class="story-photo-wrapper">
+                    <img src="file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-11%20at%207.45.18%20PM.jpeg" alt="Bishalakshi Temple Structure">
+                    <div class="photo-caption">Photo 1: The overarching majestic south-facing structure of the historic Bishalakshi Temple at Parul village.</div>
+                </div>
+
+                <h2>The Legend & Oral History</h2>
+                <p>According to local tradition, the village landlord Raja Ranjit Ray once received a divine vision in which the Goddess promised to be born as his daughter. However, she warned that if he ever asked her to leave, she would depart forever. A few months later, a daughter was indeed born to the landlord’s family. On the day of a Baruni festival, the young girl requested permission to go bathing in the village pond with her friends. Distracted and absent-minded, Ranjit Ray granted her request, and at that very moment the divine child disappeared forever.</p>
+
+<p> While this story belongs to the realm of folklore and local belief, a plaque within the temple premises provides concise historical information about the shrine. The following is an English translation of the inscription:</p>
+<p> Temple Introduction
+
+This historic temple of Sri Sri Bishalakshi Mata, situated at Bikrampur in the Arambagh subdivision and revered for centuries, is dedicated to the worship of the Goddess Bishalakshi, the presiding deity of the renowned Raja Ranjit Ray and the family deity (Kuladevi) of the Ray family of Madhabpur, descendants of Raja Ranjit Ray.
+
+It was at this very site that Raja Ranjit practised Tantric worship of the Goddess. The story of Goddess Bishalakshmi, an incarnation of Durga, taking birth as Raja Ranjit’s daughter has been mentioned for generations in the history of Rarh Bengal, various historical documents, and scholarly articles. The miraculous event is also referred to in Sri Sri Ramakrishna Kathamrita.
+
+The present temple was constructed in 1859 CE (1781 Saka Era / 1266 Bengali Era) by the sons of the distinguished landlord Sri Shantiram Ray, founder of the Madhabpur Ray family.
+
+The Madhabpur Ray family continues to serve as the hereditary custodians and worshippers of the Goddess.
+
+The temple is mentioned in Late Mediaeval Temples of Bengal by David J. McCutchion (Asiatic Society of Bengal, 1972 edition) and also in Narendra Nath Bhattacharya’s work on the antiquities of Hooghly district.</p>
+<p> Built on a high plinth and facing south, the temple follows the nineteenth-century Medinipur style of temple architecture and is constructed in the atchala form. The entrance consists of three arched openings.</p>
+
+                <!-- Story Photo 2 & 3 -->
+                <div class="photo-split-row">
+                    <div class="story-photo-wrapper">
+                        <img src="file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-11%20at%207.45.18%20PM.jpeg" alt="Terracotta close up left">
+                        <div class="photo-caption">Photo 2: Detailed view of the foundation plinth corner columns.</div>
+                    </div>
+                    <div class="story-photo-wrapper">
+                        <img src="file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-11%20at%207.45.18%20PM.jpeg" alt="Terracotta close up right">
+                        <div class="photo-caption">Photo 3: Vertical friezes exhibiting classic historical lifestyle motifs.</div>
+                    </div>
+                </div>
+
+                <h2>Intricate Terracotta Art Details</h2>
+                <p>The temple stands on an elevated plinth. Terracotta ornamentation survives only on the façade. Although not extremely old, the terracotta work is elegant and of considerable artistic merit. The temple remains under the management of a private trust. Repeated coats of paint applied over the years have somewhat obscured and damaged the original colour and texture of the terracotta panels. The finial (kalasa) atop the temple tower is particularly striking.</p>
+
+<p>Inside the sanctum is a sacred stone representing Goddess Bishalakshi. Daily worship is performed twice a day. The terracotta panels depict scenes from the battle between Rama and Ravana, human figures, floral motifs, the Samudra Manthana (Churning of the Ocean), and episodes of devotional congregational singing. Circular floral decorations above the arches resemble the well-known “Tree of Life” motif. Like many temples of Bengal, the shrine features a triple-arched (tri-khilan) entrance.</p>
+
+
+                <!-- Story Photo 4 -->
+                <div class="story-photo-wrapper">
+                    <img src="file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-11%20at%207.45.18%20PM.jpeg" alt="Temple Roof Archways">
+                    <div class="photo-caption">Photo 4: View of the double-tiered Atchala curved roof layout against the skyline.</div>
+                </div>
+
+                <p>Daily worship is conducted at the temple. While the exact morning worship schedule is not known, the sanctum generally closes by noon. It reopens around 5:30–6:00 PM for evening worship. The temple premises remain open from morning until approximately 8:00 PM.</p>
+                
+                <!-- Story Photo 5 -->
+                <div class="story-photo-wrapper">
+                    <img src="file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-11%20at%207.45.18%20PM.jpeg" alt="Inner Sanctum Entrance">
+                    <div class="photo-caption">Photo 5: The primary entry archway displaying miniature panel framing styles.</div>
+                </div>
+
+                <p>Parul village can be easily reached by toto (electric rickshaw) from Arambagh railway station. Visitors should also explore the nearby cremation-ground Kali Temple and Shiva Temple, as well as the ancient Raghunandan Jiu Temple located about five minutes away on foot.</p>
+            </div>
+
+            <!-- --- Photos Gallery Box Section --- -->
+            <section class="gallery-box-wrapper">
+                <h3>Excursion Media Archive (Full Photo Gallery)</h3>
+                <div class="gallery-grid">
+                    
+                    <div class="gallery-item">
+                        <img src="file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-11%20at%207.45.18%20PM.jpeg" alt="Gallery image 1">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-11%20at%207.45.18%20PM.jpeg" alt="Gallery image 2">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-11%20at%207.45.18%20PM.jpeg" alt="Gallery image 3">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-11%20at%207.45.18%20PM.jpeg" alt="Gallery image 4">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-11%20at%207.45.18%20PM.jpeg" alt="Gallery image 5">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-11%20at%207.45.18%20PM.jpeg" alt="Gallery image 6">
+                    </div>
+
+                </div>
+            </section>
+
+        </article>
+    </div>
+
+    <!-- Site Footer Section Layout -->
+    <footer class="site-footer">
+        <p>&copy; 2026 The Heritage Explorer. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
