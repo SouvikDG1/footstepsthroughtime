@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hooghly Heritage | The Heritage Explorer</title>
+    <style>
+        /* --- Global Styles & Colors --- */
+        :root {
+            --primary-color: #8c6239; /* Terracotta/Earth brown */
+            --secondary-color: #e6dfd3; /* Soft cream/stone */
+            --bg-color: #fdfbf7; /* Warm white page background */
+            --text-color: #333333;
+            --dark-accent: #5c3e21;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background-image: url("file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-10%20at%208.10.35%20PM.jpeg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--dark-accent);
+            position: relative;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+        }
+
+        header h1, header p {
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+        }
+
+        header p {
+            margin: 0.5rem 0 0 0;
+            font-style: italic;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* --- Navigation Menu --- */
+        nav {
+            background-color: var(--dark-accent);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav a {
+            display: block;
+            color: white;
+            padding: 16px 24px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav li:hover > a {
+            background-color: var(--primary-color);
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 220px;
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.15);
+            padding: 0;
+            border-top: 3px solid var(--primary-color);
+        }
+
+        .mega-dropdown {
+            min-width: 650px;
+            display: none;
+            position: absolute;
+            background-color: white;
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.15);
+            padding: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            border-top: 3px solid var(--primary-color);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .mega-col h4 {
+            margin: 0 0 8px 0;
+            color: var(--primary-color);
+            font-size: 13px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--secondary-color);
+            padding-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .mega-col ul {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 0;
+            list-style: none;
+        }
+
+        .mega-col li a {
+            color: var(--text-color);
+            padding: 6px 0;
+            font-weight: 500;
+            font-size: 13px;
+            background: none;
+        }
+
+        .mega-col li a:hover {
+            color: var(--primary-color);
+            background: none;
+            padding-left: 5px;
+        }
+
+        .dropdown-menu a {
+            color: var(--text-color);
+            padding: 12px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            font-weight: 500;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        nav li:hover .dropdown-menu { display: block; }
+        nav li:hover .mega-dropdown { display: grid; }
+
+        /* --- Main Layout Grid --- */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 40px;
+            padding: 0 15px;
+        }
+
+        /* --- Hooghly Landing Header Elements --- */
+        .district-header {
+            background: linear-gradient(135deg, #f7f3eb, #ffffff);
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            border-top: 1px solid #e8e4dc;
+            border-right: 1px solid #e8e4dc;
+            border-bottom: 1px solid #e8e4dc;
+            margin-bottom: 35px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+
+        .district-header h2 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+
+        .district-header p {
+            color: #555;
+            font-size: 15px;
+            margin: 0;
+        }
+
+        /* --- Post Grid & Box Layout --- */
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .post-card {
+            background: white;
+            border: 1px solid #e8e4dc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        /* Fixed Image Wrapper Styles */
+        .post-thumb {
+            width: 100%;
+            height: 190px;
+            background-color: var(--secondary-color);
+            overflow: hidden;
+            display: block; /* Fixed display bug from parent grid templates */
+            position: relative;
+        }
+
+        /* Fixed Cover Image Fit Handling Rules */
+        .card-cover-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .post-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .post-category {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--primary-color);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .post-title {
+            margin: 8px 0 12px 0;
+            font-size: 17px;
+            line-height: 1.4;
+            color: #222;
+        }
+
+        .post-excerpt {
+            font-size: 13.5px;
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+            display: inline-block;
+            margin-top: auto;
+            transition: transform 0.2s;
+        }
+
+        .read-more:hover {
+            transform: translateX(4px);
+        }
+
+        /* --- Sidebar Redesign Elements --- */
+        .sidebar h3 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 6px;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-block {
+            background: white;
+            border: 1px solid #e8e4dc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.02);
+        }
+
+        /* Search Input */
+        .search-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #c8c2b7;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background-color: #faf8f5;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(140, 98, 57, 0.15);
+        }
+
+        /* Google Map Frame Box Layout */
+        .map-container {
+            width: 100%;
+            height: 280px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid #e8e4dc;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        footer.site-footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 14px;
+            border-top: 4px solid var(--dark-accent);
+        }
+
+        /* --- Responsive Structural Viewports --- */
+        @media (max-width: 992px) {
+            .mega-dropdown {
+                min-width: 100%;
+                grid-template-columns: repeat(2, 1fr);
+                left: 0;
+                transform: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+            nav ul { flex-direction: column; text-align: center; }
+            .dropdown-menu, .mega-dropdown {
+                position: relative;
+                display: none;
+                min-width: 100%;
+                box-shadow: none;
+                transform: none;
+                left: 0;
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+            nav li:hover .dropdown-menu, nav li:hover .mega-dropdown { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Banner -->
+    <header>
+        <h1>Footsteps Through Time</h1>
+        <p>Unearthing Stories, Architecture & Antiquities</p>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li>
+                <a href="#">West Bengal ▼</a>
+                <div class="mega-dropdown">
+                    <div class="mega-col">
+                        <h4>North Bengal & Hills</h4>
+                        <ul>
+                            <li><a href="#">Alipurduar</a></li>
+                            <li><a href="#">Cooch Behar</a></li>
+                            <li><a href="#">Darjeeling</a></li>
+                            <li><a href="#">Jalpaiguri</a></li>
+                            <li><a href="#">Kalimpong</a></li>
+                            <li><a href="#">Malda</a></li>
+                            <li><a href="#">Uttar Dinajpur</a></li>
+                            <li><a href="#">Dakshin Dinajpur</a></li>
+                        </ul>
+                    </div>
+                    <div class="mega-col">
+                        <h4>Rarh & Western Plains</h4>
+                        <ul>
+                            <li><a href="#">Bankura</a></li>
+                            <li><a href="#">Birbhum</a></li>
+                            <li><a href="#">Jhargram</a></li>
+                            <li><a href="#">Paschim Bardhaman</a></li>
+                            <li><a href="#">Purba Bardhaman</a></li>
+                            <li><a href="#">Paschim Medinipur</a></li>
+                            <li><a href="#">Purulia</a></li>
+                        </ul>
+                    </div>
+                    <div class="mega-col">
+                        <h4>Delta & Lower Bengal</h4>
+                        <ul>
+                            <li><a href="#">Hooghly</a></li>
+                            <li><a href="#">Howrah</a></li>
+                            <li><a href="#">Kolkata</a></li>
+                            <li><a href="#">Murshidabad</a></li>
+                            <li><a href="#">Nadia</a></li>
+                            <li><a href="#">North 24 Parganas</a></li>
+                            <li><a href="#">Purba Medinipur</a></li>
+                            <li><a href="#">South 24 Parganas</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <a href="#">Travel Diary Outside Bengal ▼</a>
+                <div class="dropdown-menu">
+                    <a href="#">Rajasthan ➔</a>
+                    <a href="#">Karnataka</a>
+                    <a href="#">Other States</a>
+                </div>
+            </li>
+            <li><a href="#">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Content Area Container -->
+    <div class="container">
+        
+        <!-- Main Panel Section -->
+        <main class="main-content">
+            <section class="district-header">
+                <h2>Hooghly Journeys</h2>
+                <p>Explore centuries of heritage left behind by Indian kings alongside historic European maritime traces right down the riverbanks of Hooghly.</p>
+            </section>
+
+            <div class="post-grid" id="postGrid">
+                
+                <!-- Card Item 1 (With Active Image Cover Integration Fixed) -->
+                <article class="post-card">
+                    <div class="post-thumb">
+                        <img src="file:///C:/Users/LENOVO/Downloads/WhatsApp%20Image%202026-06-11%20at%207.45.18%20PM.jpeg" alt="Bishalakshi Temple, Parul Village" class="card-cover-image">
+                    </div>
+                    <div class="post-info">
+                        <span class="post-category">Hooghly > Arambagh</span>
+                        <h3 class="post-title">Parul Village’s Bishalakshi Temple: Legend, History, and Terracotta Art</h3>
+                        <p class="post-excerpt">Among Bengal’s comparatively later terracotta temples stands the Bishalakshi Temple of Parul village in Hooghly district. Dedicated to the all-seeing Goddess Bishalakshi, this south-facing temple, built on a high plinth in the traditional atchala style, is associated with a popular local legend.</p>
+                        <a href="#" class="read-more">Read Journey →</a>
+                    </div>
+                </article>
+
+                <!-- Card Item 2 -->
+                <article class="post-card">
+                    <div class="post-thumb">
+                        <div style="padding: 20px; text-align: center; color: #61462d; font-size:14px; font-weight:500;">📷 Photo of Hooghly Imambara</div>
+                    </div>
+                    <div class="post-info">
+                        <span class="post-category">Hooghly > Chinsurah</span>
+                        <h3 class="post-title">Echoing Bells of Hooghly Imambara</h3>
+                        <p class="post-excerpt">Analyzing the majestic architecture, its legendary grand clock tower, and the stunning views of the river from the high minarets.</p>
+                        <a href="#" class="read-more">Read Journey →</a>
+                    </div>
+                </article>
+
+                <!-- Card Item 3 -->
+                <article class="post-card">
+                    <div class="post-thumb">
+                        <div style="padding: 20px; text-align: center; color: #61462d; font-size:14px; font-weight:500;">📷 Photo of Chandannagar Strand</div>
+                    </div>
+                    <div class="post-info">
+                        <span class="post-category">Hooghly > Chandannagar</span>
+                        <h3 class="post-title">French Essence Along the Strand</h3>
+                        <p class="post-excerpt">A quiet walk across the beautifully preserved French colonial promenade, exploring the Sacred Heart Church and old administrative manses.</p>
+                        <a href="#" class="read-more">Read Journey →</a>
+                    </div>
+                </article>
+
+            </div>
+        </main>
+
+        <!-- Sidebar Components Area -->
+        <aside class="sidebar">
+            
+            <!-- Filter Text Input Feature Component -->
+            <div class="sidebar-block">
+                <h3>Search Hooghly Posts</h3>
+                <input type="text" id="titleSearch" class="search-input" placeholder="Type keywords from title...">
+            </div>
+
+            <!-- Google Map Feature Component -->
+            <div class="sidebar-block">
+                <h3>Hooghly Explorer Map</h3>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117562.13886544414!2d88.23945415!3d22.8647895!2m3!1f0!2f0!3f0!3m2!1i1024|2i768|4f13.1!3m3!1m2!1s0x39f893116772714b%3A0x6e2d1bb025110e53!2sHooghly%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+
+        </aside>
+
+    </div>
+
+    <!-- Site Footer Section Layout -->
+    <footer class="site-footer">
+        <p>&copy; 2026 The Heritage Explorer. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Text Character Word-Extraction Filtering Script -->
+    <script>
+        document.getElementById('titleSearch').addEventListener('keyup', function() {
+            let filterValue = this.value.toLowerCase().trim();
+            let postCards = document.querySelectorAll('#postGrid .post-card');
+            
+            postCards.forEach(function(card) {
+                let postTitle = card.querySelector('.post-title').textContent.toLowerCase();
+                
+                if (postTitle.includes(filterValue)) {
+                    card.style.display = "flex"; 
+                } else {
+                    card.style.display = "none"; 
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
